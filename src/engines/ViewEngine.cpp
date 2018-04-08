@@ -86,7 +86,7 @@ void ViewEngine::renderView()
 
         //Copy to front
         SDL_RenderPresent(gRenderer);
-        //SDL_Delay(5);
+        SDL_Delay(5);
     }
     else
         throw std::runtime_error("Null interface");

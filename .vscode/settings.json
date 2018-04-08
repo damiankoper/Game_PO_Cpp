@@ -32,8 +32,7 @@
         "utility": "cpp",
         "vector": "cpp",
         "ctime": "cpp",
-        "fstream": "cpp",
-        "cstring": "cpp"
+        "fstream": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.errorSquiggles": "Enabled"

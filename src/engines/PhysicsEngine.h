@@ -13,9 +13,9 @@ class PhysicsEngine
 public:
   static PhysicsEngine &getInstance();
   void handlePhysics(std::vector<Square *> squares,
-                     std::vector<SDL_Rect *> collisionObjects,
+                     std::vector<SDL_Rect> collisionObjects,
                      std::vector<SDL_Rect *> *pointsObjects,
-                     SDL_Rect *finish,
+                     SDL_Rect finish,
                      double timeStep);
 
 private:

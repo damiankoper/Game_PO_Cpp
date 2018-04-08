@@ -23,9 +23,9 @@ PhysicsEngine &PhysicsEngine::getInstance()
     return engine;
 }
 void PhysicsEngine::handlePhysics(std::vector<Square *> squares,
-                                  std::vector<SDL_Rect *> collisionObjects,
+                                  std::vector<SDL_Rect> collisionObjects,
                                   std::vector<SDL_Rect *> *pointsObjects,
-                                  SDL_Rect *finish,
+                                  SDL_Rect finish,
                                   double timeStep)
 {
     for (Square *s : squares)
@@ -47,9 +47,9 @@ void PhysicsEngine::handlePhysics(std::vector<Square *> squares,
         s->processCollision(coll);
         coll = Vector(0, 0);
         r = s->getRect();
-        for (SDL_Rect *c : collisionObjects)
+        for (SDL_Rect c : collisionObjects)
         {
-            coll += collision(&r, c);
+            coll += collision(&r, &c);
         }
         s->processCollision(coll);
         //points
@@ -61,7 +61,7 @@ void PhysicsEngine::handlePhysics(std::vector<Square *> squares,
                 pointsObjects->erase(pointsObjects->begin() + i);
             }
         }
-        if (collision(&r, finish) != 0)
+        if (collision(&r, &finish) != 0)
         {
             GameInfo::getInstance().handleFinish();
         }
