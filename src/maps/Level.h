@@ -3,11 +3,11 @@
 #include <string>
 #include <vector>
 #include "../interfaces/MapInterface.h"
-class Level1 : public MapInterface
+class Level : public MapInterface
 {
   public:
-    Level1();
-    ~Level1();
+    Level(std::string name);
+    ~Level();
     void init();
 
   private:

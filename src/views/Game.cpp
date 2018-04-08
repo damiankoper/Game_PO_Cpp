@@ -7,28 +7,22 @@
 #include <iostream>
 void Game::render(SDL_Renderer *gRenderer)
 {
+    //GameInfo::getInstance().getMap()->init(); //debug
+
     //FPS independent movement calculations
     Uint32 ts = timer->getTicks();
     double timeStep = (ts / 1000.);
 
     timer->start();
 
-    //Info HUD
-    std::string pointsString = std::to_string(GameInfo::getInstance().getPoints()) +
-                               "/" + std::to_string(GameInfo::getInstance().getPointsAll());
-    time->loadFromRenderedText("Score: " + pointsString, {0, 0, 0}, gFont);
-    time->render(20, 20);
-
-    time->loadFromRenderedText("Time: " + GameInfo::getInstance().getTimeString(), {0, 0, 0}, gFont);
-    time->render(20, 45);
-
     //Ground
     SDL_SetRenderDrawColor(ViewEngine::getInstance().getRenderer(), 0, 0, 0, 1);
-    std::vector<SDL_Rect> ground = GameInfo::getInstance().getMap()->getGround();
-    for (auto &g : ground)
+    std::vector<SDL_Rect *> ground = GameInfo::getInstance().getMap()->getGround();
+    for (auto g : ground)
     {
-        g.x += offsetX;
-        SDL_RenderFillRect(ViewEngine::getInstance().getRenderer(), &g);
+        SDL_Rect tempRect = *g;
+        tempRect.x += offsetX;
+        SDL_RenderFillRect(ViewEngine::getInstance().getRenderer(), &tempRect);
     }
 
     //Points
@@ -43,23 +37,38 @@ void Game::render(SDL_Renderer *gRenderer)
 
     //Finish
     SDL_SetRenderDrawColor(ViewEngine::getInstance().getRenderer(), 255, 0, 0, 1);
-    SDL_Rect finish = GameInfo::getInstance().getMap()->getFinish();
-    finish.x += offsetX;
-    SDL_RenderFillRect(ViewEngine::getInstance().getRenderer(), &finish);
+    SDL_Rect *finish = GameInfo::getInstance().getMap()->getFinish();
+    SDL_Rect tempRect = *finish;
+    tempRect.x += offsetX;
+    SDL_RenderFillRect(ViewEngine::getInstance().getRenderer(), &tempRect);
 
     for (auto &s : squares)
     {
         SDL_SetRenderDrawColor(ViewEngine::getInstance().getRenderer(), s->getColor().r, s->getColor().g, s->getColor().b, 1);
         SDL_Rect squareRect = s->getRect();
+        std::cout << squareRect.y << std::endl;
         squareRect.x += offsetX;
         SDL_RenderFillRect(ViewEngine::getInstance().getRenderer(), &squareRect);
     }
+    //std::cout << ts << std::endl;
+
+    //Info HUD
+    std::string pointsString = std::to_string(GameInfo::getInstance().getPoints()) +
+                               "/" + std::to_string(GameInfo::getInstance().getPointsAll());
+    time->loadFromRenderedText("Score: " + pointsString, {255, 255, 255}, gFontOutline);
+    time->render(17, 17);
+    time->loadFromRenderedText("Score: " + pointsString, {0, 0, 0}, gFont);
+    time->render(20, 20);
+
+    time->loadFromRenderedText("Time: " + GameInfo::getInstance().getTimeString(), {255, 255, 255}, gFontOutline);
+    time->render(17, 42);
+    time->loadFromRenderedText("Time: " + GameInfo::getInstance().getTimeString(), {0, 0, 0}, gFont);
+    time->render(20, 45);
+
 
     //Dont move and do physics if render time is less than 1ms or overlay
     if (ts == 0 || ViewEngine::getInstance().isOverlay())
         return;
-
-    std::cout << ts << std::endl;
 
     //Camera offset
     calculateOffset();
@@ -102,6 +111,8 @@ void Game::init()
     offsetX = 50;
     border = 200;
     gFont = TTF_OpenFont(FONT.c_str(), 20);
+    gFontOutline = TTF_OpenFont(FONT.c_str(), 20);
+    TTF_SetFontOutline(gFontOutline, 3);
     GameInfo::getInstance().getMap()->init();
 
     ViewEngine::getInstance().setOverlay("pause");
@@ -113,12 +124,18 @@ void Game::init()
     points = new Texture(ViewEngine::getInstance().getRenderer());
 
     squares.clear();
-    Square *square = new Square(Vector(10, 10), Vector(600, 1000), 50, 4, 0.99, 1);
+    Square *square = new Square(Vector(10, 10), Vector(600, 1000), 50, 2, 0.99, 1);
     squares.push_back(square);
-    square = new Square(Vector(80, 80), Vector(500, 1000), 60, 4, 0.9, 1);
+    square = new Square(Vector(80, 80), Vector(500, 1100), 60, 4, 0.9, 1);
     squares.push_back(square);
-    square = new Square(Vector(160, 80), Vector(700, 1000), 80, 3, 0.95, 1);
+    square = new Square(Vector(160, 80), Vector(700, 1100), 80, 4, 0.95, 1);
     squares.push_back(square);
+    /* Square *square = new Square(Vector(2000, 10), Vector(600, 1000), 50, 2, 0.99, 1);
+    squares.push_back(square);
+    square = new Square(Vector(2070, 80), Vector(500, 1100), 60, 4, 0.9, 1);
+    squares.push_back(square);
+    square = new Square(Vector(2200, 80), Vector(700, 1100), 80, 4, 0.95, 1);
+    squares.push_back(square); */
 }
 
 Square *Game::maxRight()
@@ -143,8 +160,8 @@ Square *Game::maxRight()
 void Game::calculateOffset()
 {
     SDL_Rect s = maxRight()->getRect();
-    if (s.x + offsetX < border)
-        offsetX = -(s.x - border);
+    if (s.x + offsetX < 2 * border)
+        offsetX = -(s.x - 2 * border);
     if (s.x + s.w + offsetX > SCREEN_WIDTH - border)
         offsetX = -(s.x + s.w - SCREEN_WIDTH + border);
 }

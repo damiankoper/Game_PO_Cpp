@@ -25,6 +25,7 @@ public:
 
 private:
   TTF_Font *gFont;
+  TTF_Font *gFontOutline;
   Texture *time;
   Texture *points;
   Timer *timer;
