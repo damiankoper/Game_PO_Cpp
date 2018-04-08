@@ -17,7 +17,7 @@ LIB_FLAGS := $(addprefix -L,$(LIB_DIRS))
 LDFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 
 
-CPPFLAGS ?= $(INC_FLAGS) $(LIB_FLAGS) -g
+CPPFLAGS ?= $(INC_FLAGS) $(LIB_FLAGS) -g -Wl,-subsystem,windows
 
 $(TARGET_EXEC): $(OBJS)
 	$(MKDIR_P) $(BUILD_DIR)
