@@ -10,7 +10,7 @@
 #include "views/Pause.h"
 #include "views/Game.h"
 #include "views/Scoreboard.h"
-#include "maps/Level1.h"
+#include "maps/Level.h"
 #include <iostream>
 #include <stdexcept>
 #include <ctime>
@@ -21,7 +21,7 @@ ViewInterface *nickname;
 ViewInterface *scoreboard;
 ViewInterface *game;
 ViewInterface *pause;
-MapInterface *level1;
+MapInterface *level;
 SDL_Window *gWindow;
 SDL_Renderer *gRenderer;
 
@@ -49,8 +49,8 @@ void init()
 }
 void loadInterfaces()
 {
-	level1 = new Level1();
-	GameInfo::getInstance().setMap(level1);
+	level = new Level("level1");
+	GameInfo::getInstance().setMap(level);
 
 	mainMenu = new MainMenu();
 	settings = new Settings();
@@ -76,7 +76,7 @@ int main(int, char **)
 	init();
 	loadInterfaces();
 	loadMedia();
-	ViewEngine::getInstance().changeView("game");
+	ViewEngine::getInstance().changeView("mainManu");
 	SDL_Event e;
 	while (!ViewEngine::getInstance().quit)
 	{

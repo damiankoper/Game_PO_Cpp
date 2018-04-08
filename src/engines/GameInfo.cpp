@@ -8,6 +8,7 @@
 #include <cstring>
 #include <fstream>
 #include <algorithm>
+#include <cmath>
 #include "../components/Timer.h"
 
 GameInfo::GameInfo()
@@ -119,7 +120,8 @@ void GameInfo::handleFinish()
     readSave();
     statss s;
     strcpy(s.name, player.c_str());
-    s.score = (points * 1000+1000) / getGameTime();
+    double tt = getGameTime();
+    s.score = (points * exp((-tt+2300)/1000.));
     bestScore.push_back(s);
     sort(bestScore.begin(), bestScore.end(), [](const statss s1, const statss s2) {
         return s1.score > s2.score;
