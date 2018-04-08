@@ -76,7 +76,7 @@ int main(int, char **)
 	init();
 	loadInterfaces();
 	loadMedia();
-	ViewEngine::getInstance().changeView("mainManu");
+	ViewEngine::getInstance().changeView("mainMenu");
 	SDL_Event e;
 	while (!ViewEngine::getInstance().quit)
 	{
