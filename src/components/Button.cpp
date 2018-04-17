@@ -9,6 +9,7 @@
 Button::Button(){
   borderX = 10;
   borderY = 0;
+  active = false;
 }
 
 Button *Button::setPosition(int x, int y)
@@ -58,6 +59,7 @@ Button *Button::handleEvent(SDL_Event *e)
     }
     if (!inside)
     {
+      active = false;
     }
     else
     {
@@ -73,7 +75,7 @@ Button *Button::handleEvent(SDL_Event *e)
 
       case SDL_MOUSEBUTTONUP:
         std::cout << "UP" << std::endl;
-        if (active = true)
+        if (active)
         {
           callback();
         }
