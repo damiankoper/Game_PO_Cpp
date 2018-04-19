@@ -23,7 +23,6 @@ SDL_Rect Square::getRect()
 
 void Square::addPosition(double timeStep)
 {
-    //std::cout << velocity.x << std::endl;
     position += velocity * timeStep;
 }
 

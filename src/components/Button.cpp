@@ -6,10 +6,10 @@
 #include "../config.h"
 #include <ctime>
 
-Button::Button(){
+Button::Button()
+{
   borderX = 10;
   borderY = 0;
-  active = false;
 }
 
 Button *Button::setPosition(int x, int y)
@@ -59,7 +59,6 @@ Button *Button::handleEvent(SDL_Event *e)
     }
     if (!inside)
     {
-      active = false;
     }
     else
     {
@@ -69,12 +68,10 @@ Button *Button::handleEvent(SDL_Event *e)
         break;
 
       case SDL_MOUSEBUTTONDOWN:
-        std::cout << "DOWN" << std::endl;
         active = true;
         break;
 
       case SDL_MOUSEBUTTONUP:
-        std::cout << "UP" << std::endl;
         if (active)
         {
           callback();

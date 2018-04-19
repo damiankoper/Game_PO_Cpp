@@ -95,7 +95,6 @@ std::vector<statss> GameInfo::readSave()
         while (input.gcount() > 0)
         {
             v.push_back(s);
-            std::cout << s.score << std::endl;
             input.read((char *)&s, sizeof(statss));
         }
     }

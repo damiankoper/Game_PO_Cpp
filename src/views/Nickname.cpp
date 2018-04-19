@@ -53,7 +53,7 @@ void Nickname::init()
   Button *button = new Button();
   button->setTexture("Main Menu", 40, {255, 255, 255}, {0, 0, 0})
       ->setPosition(30, SCREEN_HEIGHT - 70)
-      ->onClick([]() {
+      ->onClick([]() { 
         ViewEngine::getInstance().changeView("mainMenu");
       });
   buttons.push_back(button);

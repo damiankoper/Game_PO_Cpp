@@ -46,11 +46,9 @@ void Game::render(SDL_Renderer *gRenderer)
     {
         SDL_SetRenderDrawColor(ViewEngine::getInstance().getRenderer(), s->getColor().r, s->getColor().g, s->getColor().b, 1);
         SDL_Rect squareRect = s->getRect();
-        std::cout << squareRect.y << std::endl;
         squareRect.x += offsetX;
         SDL_RenderFillRect(ViewEngine::getInstance().getRenderer(), &squareRect);
     }
-    //std::cout << ts << std::endl;
 
     //Info HUD
     std::string pointsString = std::to_string(GameInfo::getInstance().getPoints()) +
@@ -130,12 +128,6 @@ void Game::init()
     squares.push_back(square);
     square = new Square(Vector(160, 80), Vector(700, 1100), 80, 4, 0.95, 1);
     squares.push_back(square);
-    /* Square *square = new Square(Vector(2000, 10), Vector(600, 1000), 50, 2, 0.99, 1);
-    squares.push_back(square);
-    square = new Square(Vector(2070, 80), Vector(500, 1100), 60, 4, 0.9, 1);
-    squares.push_back(square);
-    square = new Square(Vector(2200, 80), Vector(700, 1100), 80, 4, 0.95, 1);
-    squares.push_back(square); */
 }
 
 Square *Game::maxRight()

@@ -45,7 +45,6 @@ void ViewEngine::changeView(std::string name)
 }
 void ViewEngine::setOverlay(std::string name)
 {
-    std::cout << name;
     overlay = interfaces[name];
     overlay->init();
 }
