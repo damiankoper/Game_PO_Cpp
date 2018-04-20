@@ -80,7 +80,7 @@ int main(int, char **)
 	SDL_Event e;
 	while (!ViewEngine::getInstance().quit)
 	{
-		while (SDL_PollEvent(&e) != 0)
+		while (SDL_PollEvent(&e) != 0) 
 		{
 			if (e.type == SDL_QUIT)
 			{
