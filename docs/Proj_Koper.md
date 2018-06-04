@@ -18,11 +18,11 @@ trzema kwadratami, sterowanymi za pomocą tych samych przycisków w tym samym cz
 ```js
 points * exp((-gameTime+2300)/1000.0)
 ```
-Trudność gry polega na wspomnianym sterowaniu wszystkimi trzeba kwadratami jednocześnie. Do ukończenia poziomu wystarczy przemieścić się do punktu końcowego tylko jednym kwadratem, ale po drodze można napotkać trudności z wskoczeniem na niektóre przeszkody, gdzie konieczne jest poświęcenie jednego kwadratu i stworzenie sobie "schodków".
+Trudność gry polega na wspomnianym sterowaniu wszystkimi trzena kwadratami jednocześnie. Aby ukończyć poziom wystarczy przemieścić się do punktu końcowego tylko jednym kwadratem, ale po drodze można napotkać trudności ze wskoczeniem na niektóre przeszkody, gdzie konieczne jest poświęcenie jednego kwadratu i stworzenie sobie "schodków".
 
-Gra może stanowić wyzwanie dla graczy w dziedzinie *speedruningu*, która to polega na jak najszybszem i najdokłdniejszym przejściu gry, gdyż na wynik końcowy przekłada się czas, jak i ilość zebranych punktów.
+Gra może stanowić wyzwanie dla graczy w dziedzinie *speedruningu*, która to polega na jak najszybszem i najdokładniejszym przejściu gry, gdyż na wynik końcowy przekłada się czas, jak i ilość zebranych punktów.
 
-Gra pozwala na zmianą trybu wyświetlania na **fullscreen**, oraz na zmianę nazwy gracza, co pozwala na śledzenie i porównywanie wyników kolejnych rozgrywek.
+Gra pozwala na zmianę trybu wyświetlania na **fullscreen**, oraz na zmianę nazwy gracza, co pozwala na śledzenie i porównywanie wyników kolejnych rozgrywek.
 
 # Diagramy UML
 ### Diagram przypadków użycia:
@@ -32,17 +32,17 @@ Gra pozwala na zmianą trybu wyświetlania na **fullscreen**, oraz na zmianę na
 <img src="UML_Class.png">
 
 Program jest napisany w całości przeze mnie w środowisku VS Code. Nie użyłem żadnego kreatora, więc diagram stworzonych przeze mnie klas jest dość obszerny.
-Pliki w wyższej rozdzielczości można znaleść tutaj: https://github.com/damiankoper/Game_PO_Cpp/tree/master/docs
+Pliki w wyższej rozdzielczości można znaleźć tutaj: https://github.com/damiankoper/Game_PO_Cpp/tree/master/docs
 
 # Kod klas C++
-Projektując strukturę programu wzorowałem się na modelu **MVC**. Za silnik graficzy posłużyła mi biblioteka SDL2. Próbowałem rozdzielić widok, od wejścia i pozostałej logiki aplikacij(modelu).
+Projektując strukturę programu wzorowałem się na modelu **MVC**. Za silnik graficzny posłużyła mi biblioteka SDL2. Próbowałem rozdzielić widok, od wejścia i pozostałej logiki aplikacji (modelu).
 
 Każdy widok składa się z trzech funkcji:
 1. `init` - inicjalizacja elementów widoku
 2. `handleEvent` - obsługa zdarzeń
 3. `render` - wyświetlanie widoku
 
-Wykonują się one w głównej pętli aplikacji dla aktualnego widoku (dzięki polimorfizmowi). Wszystkie widoki dziedziczą z klasy ViewInterface i dla łatwości identyfikacji i zmiany rozpoznawane są przez atrybut `name`.
+Wykonują się one w głównej pętli aplikacji dla aktualnego widoku (dzięki polimorfizmowi). Wszystkie widoki dziedziczą z klasy `ViewInterface` i dla łatwości identyfikacji, i zmiany, rozpoznawane są przez atrybut `name`.
 
 ```cpp
 class ViewInterface
@@ -172,7 +172,7 @@ private:
 };
 ```
 
-W celu zbudowanie UI stworzyłem też klasę przycisku `Button`, której jednym z parametrów jest wskaźnik na funkcję, która ma się wykonać po naciśnięciu przycisku. Użyłem tu też *method chaining*, co znacznie ułatwia konfigurację. Jako kontrolka umieszczona w widoku przycisk ma swoje metody `render()` i `handleEvent()`, które wywoływane są w widoku:
+W celu zbudowania UI stworzyłem też klasę przycisku `Button`, której jednym z parametrów jest wskaźnik na funkcję, która ma się wykonać po naciśnięciu przycisku. Użyłem tu też *method chaining*, co znacznie ułatwia konfigurację. Jako kontrolka umieszczona w widoku przycisk ma swoje metody `render()` i `handleEvent()`, które wywoływane są w widoku:
 ```cpp
 class Button
 {
@@ -248,7 +248,7 @@ private:
   SDL_Color bgColor;
 };
 ```
-Dalej pozostają klasy, które obudowują potrzebne funkcje SDLa, takie jak `Texture` i `Timer`, których listing kodu tutaj nic by nie wniósł.
+Dalej pozostają klasy, które obudowują potrzebne funkcje SDLa, takie jak `Texture` i `Timer`. Listing ich kodu tutaj nic by nie wniósł.
 
 Klasy wszystkich widoków wyglądają podobnie. Umieszczam klasę `MainMenu`:
 ```cpp
@@ -296,7 +296,7 @@ private:
 };
 ```
 
-Mapa gry zbudowana jest wyłączcnie z prostokątów. Myśląc przyszłościowo stworzyłem również klasę bazową poziomu i chciałem dziedziczyć różne rodzaje poziomów, jednak brak czasu i kompleksowość obecnych rozwiązań odwiodły mnie od rozbudowy tej idei.
+Mapa gry zbudowana jest wyłącznie z prostokątów. Myśląc przyszłościowo, stworzyłem również klasę bazową poziomu i chciałem dziedziczyć różne ich rodzaje, jednak brak czasu i kompleksowość obecnych rozwiązań odwiodły mnie od rozbudowy tej idei.
 ```cpp
 class MapInterface
 {
@@ -321,7 +321,7 @@ protected:
   SDL_Rect *finish;
 };
 ```
-Klasa ta odpowiedzialna jest za wczytywanie danynch mapy z pliku zgodnego z formatem:
+Klasa ta odpowiedzialna jest za wczytywanie danych mapy z pliku zgodnego z formatem:
 ```
 -600, 620, 24000, 100
 -600, 0, 100, 1000
@@ -371,7 +371,7 @@ Po kliknięciu na przycisk **New game** gracz zobaczy początkową część pozi
 
 <img src="5.png">
 
-Z każdego miejsca poziomu gracz, po wciśnięciu klawisza **ESC**, zostanie przeniesiony do menu pauzy, skąd może wznowić grę albo wyjśc do menu głónego bez zapisywania stanu gry:
+Z każdego miejsca poziomu gracz, po wciśnięciu klawisza **ESC**, zostanie przeniesiony do menu pauzy, skąd może wznowić grę albo wyjść do menu głównego bez zapisywania stanu gry:
 
 <img src="6.png">
 
@@ -388,4 +388,4 @@ https://github.com/damiankoper/Game_PO_Python/tree/master/src
 SDL2 w Pythonie ma odzworowanie 1:1 jako biblioteka PySDL2. Logika i struktura aplikacji pozostała niezmieniona.
 
 # Wnioski
-Udało mi się zapogramować większość zaplanowanych przeze mnie funkcjonalności. Jedną z rzeczy, których nie udało się zrobić jest zmiana ustawień strowania. Oczywiście po czasie widać, że część kodu wymaga refrectoringu, jednak nie mam w planach rozwijania tego projektu. Powiniennem był bardziej trzymać się moich założeń maksymalnego zagnieżdżania logiki renderowania i obsługi zdarzeń, czego nie widać w widoku `Game`, gdzie ręcznie renderuję elementy mapy, jak i same kwadraty. Wybrałbym również bibliotekę SFML zamiast SDL, która to ma już zaimplementowane elementy takie jak wektory i timery. Zdecydowałem się na SDL gdyż moja wiedza na temat SFMLa była mniejsza, oraz z uwagi na fakt posiadania przez PySDL dobrej dokumentacji i odwzorowania 1:1 co znacząco skróciło etap przepisywania programu na drugi język, a co było moim głównym celem. Rozwój projektu mógłby operać się na rozbudowie elementów platformowych, dodanie elementów ruchomych, rozwój silnika fizycznego - użyciu na przykład **Box2D**.
+Udało mi się zapogramować większość zaplanowanych przeze mnie funkcjonalności. Jedną z rzeczy, których nie udało się zrobić jest zmiana ustawień strowania. Oczywiście po czasie widać, że część kodu wymaga refraktoryzacji, jednak nie mam w planach rozwijania tego projektu. Powiniennem był bardziej trzymać się moich założeń maksymalnego zagnieżdżania logiki renderowania i obsługi zdarzeń, czego nie widać w widoku `Game`, gdzie ręcznie renderuję elementy mapy, jak i same kwadraty. Wybrałbym również bibliotekę SFML zamiast SDL, która to ma już zaimplementowane elementy takie jak wektory i timery. Zdecydowałem się na SDL gdyż moja wiedza na temat SFMLa była mniejsza, oraz z uwagi na fakt posiadania przez PySDL dobrej dokumentacji i odwzorowania 1:1 co znacząco skróciło etap przepisywania programu na drugi język, a co było moim głównym celem. Rozwój projektu mógłby operać się na rozbudowie elementów platformowych, dodanie elementów ruchomych, rozwój silnika fizycznego - użyciu na przykład **Box2D**.
